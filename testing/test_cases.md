@@ -1,0 +1,81 @@
+# RideEase – Manual Test Case & Verification Document
+
+This document outlines the testing parameters verified locally for university ISD project acceptance.
+
+---
+
+## 🔑 Test Case 1: Account Registration & Role Authorization (Auth System)
+
+### Target JIRA Stories
+- RSRSCBMS-2: User Registration System
+- RSRSCBMS-11: User Login System
+- RSRSCBMS-12: Driver Registration System
+- RSRSCBMS-13: Driver Login System
+- RSRSCBMS-14: Admin Login System
+- RSRSCBMS-17: Role-Based Access Control
+
+### Steps to Verify
+1. Go to landing page and click **Get Started**. Complete Passenger Registration with email `testpassenger@rideease.com` and password `User@123`. Verify redirection to `/passenger/dashboard.php`.
+2. Logout and click **Join as Partner** on the login page. Register driver `testdriver@rideease.com`, entering license, NID, and Toyota car specs. Submit application.
+3. Login using Admin credentials `admin@rideease.com` / `Admin@123`. Go to **Driver Partners** side-tab, verify driver `testdriver@rideease.com` application appears, and click **Verify**.
+4. Go to **Cab Approvals** side-tab, verify driver's Toyota car details appear, and click **Approve Cab**.
+5. Log out Admin, login using driver `testdriver@rideease.com` credentials. Verify driver is now approved and has dashboard access to toggle Online/Offline.
+
+---
+
+## 🚗 Test Case 2: Ride Booking & Dynamic Peak Hour Fare (Booking System)
+
+### Target JIRA Stories
+- RSRSCBMS-18: Pickup & Destination Form
+- RSRSCBMS-19: Fare Estimation Logic
+- RSRSCBMS-20: Ride Request Submission
+- RSRSCBMS-21: Driver Assignment Logic
+- RSRSCBMS-25: Peak Hour Pricing
+- RSRSCBMS-38: Coupon Application
+
+### Steps to Verify
+1. Login as passenger `user@rideease.com` and navigate to **Book Ride**.
+2. Click anywhere on the Leaflet Map to place **Pickup Point** (1st click) and **Destination Point** (2nd click).
+3. Verify **Estimated Distance** and **Total Est. Price** calculate automatically.
+4. Input coupon code `WELCOME` into coupon field, click **Apply**. Verify the fare price updates downwards immediately (deducts ৳ 30.00).
+5. Switch system date time to morning rush hour (e.g., 09:00 AM) to verify peak hours surcharge calculation multiplier (x1.50) dynamically updates the fare estimate.
+6. Choose payment method **Cash Simulation** and click **Confirm Booking Request**. Verify tracking matches passenger to available online drivers.
+
+---
+
+## 💸 Test Case 3: Payment Checkout & Driver Earnings Payout (Payment System)
+
+### Target JIRA Stories
+- RSRSCBMS-34: Payment Method Selection
+- RSRSCBMS-35: Cash Payment Simulation
+- RSRSCBMS-36: bKash Payment Simulation
+- RSRSCBMS-37: Card Payment Simulation
+- RSRSCBMS-40: Driver Earnings Calculation
+- RSRSCBMS-41: Earnings Dashboard
+
+### Steps to Verify
+1. Log in as driver `driver@rideease.com` and toggle switch to **Online & Available**.
+2. Log in as passenger `user@rideease.com`, book a ride, and verify that the driver is matched.
+3. On driver dashboard, verify the incoming ride alert displays passenger details. Click **Accept Ride**.
+4. Verify ride status updates. Click **Start Ride Trip**.
+5. Once ride is complete, click **Complete & End Ride**.
+6. Switch back to passenger session. Go to ride tracking, click **Settle Payment**.
+7. Choose checkout method **bKash Mobile Wallet**, type random wallet mobile phone and PIN, click **Settle simulated payout**.
+8. Switch back to driver session, navigate to **My Earnings**. Verify total payout matches 80% gross fare (20% platform commission deducted).
+
+---
+
+## ⚠️ Test Case 4: SOS Distress Alerts & Support Tickets (Safety System)
+
+### Target JIRA Stories
+- RSRSCBMS-49: Complaint Management
+- RSRSCBMS-50: SOS Button
+- RSRSCBMS-52: Emergency Alert Dashboard
+- RSRSCBMS-55: Feedback Submission
+- RSRSCBMS-56: Complaint Submission
+
+### Steps to Verify
+1. During active assigned ride, click passenger's **Trigger SOS** button. Verify security dialog prompts confirmation.
+2. Log in as admin, check **Admin Dashboard** active SOS warnings, or check **SOS Dispatches** side-tab. Verify alert message is listed. Click **Settle Alert**.
+3. Log in as passenger, go to history, file complaint subject "Driver behaved rudely", and submit.
+4. Log in as admin, open **Complaint Tickets** side-tab, verify complaint exists, write admin reply, and click **Submit Resolution**.
