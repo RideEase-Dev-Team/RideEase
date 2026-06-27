@@ -9,6 +9,7 @@ redirectIfLoggedIn();
 
 $error = null;
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verifyCsrf();
 
