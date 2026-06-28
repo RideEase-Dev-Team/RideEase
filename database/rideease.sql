@@ -323,3 +323,4 @@ INSERT INTO sos_alerts (ride_id, user_id, message, is_resolved) VALUES
 INSERT INTO complaints (user_id, ride_id, subject, description, status, admin_response) VALUES
 (2, 2, 'Driver arrived late', 'The driver was 15 minutes late and did not apologize.', 'resolved', 'We have noted the feedback and spoken to the driver. Thank you.'),
 (3, 3, 'Overcharged for ride', 'I was charged more than the estimated fare shown.', 'open', NULL);
+ 
