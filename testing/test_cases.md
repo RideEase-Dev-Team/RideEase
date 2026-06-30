@@ -79,4 +79,4 @@ This document outlines the testing parameters verified locally for university IS
 2. Log in as admin, check **Admin Dashboard** active SOS warnings, or check **SOS Dispatches** side-tab. Verify alert message is listed. Click **Settle Alert**.
 3. Log in as passenger, go to history, file complaint subject "Driver behaved rudely", and submit.
 4. Log in as admin, open **Complaint Tickets** side-tab, verify complaint exists, write admin reply, and click **Submit Resolution**.
-    
+     
