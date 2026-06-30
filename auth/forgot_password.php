@@ -8,6 +8,7 @@ require_once __DIR__ . '/../config/session.php';
 
 redirectIfLoggedIn();
 
+
 $error = null;
 $success = null;
 $step = 1;
