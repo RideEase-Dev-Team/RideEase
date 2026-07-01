@@ -13,11 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
 
+
 $distanceKm = isset($_POST['distance_km']) ? floatval($_POST['distance_km']) : 0.00;
 
 if ($distanceKm <= 0) {
     jsonResponse(['success' => false, 'message' => 'Distance must be greater than zero.'], 400);
 }
+
 
 
 
@@ -44,9 +46,11 @@ try {
 
 
 
+
 } catch (PDOException $e) {
     error_log("Peak multiplier error: " . $e->getMessage());
 }
+
 
 
 
@@ -62,6 +66,11 @@ jsonResponse([
     'rate_per_km' => RATE_PER_KM
 ]);
   
+
+
+
+
+
 
 
 
