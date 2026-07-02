@@ -9,19 +9,31 @@ This document outlines the testing parameters verified locally for university IS
 ### Target JIRA Stories
 
 
+
+
 - RSRSCBMS-2: User Registration System
+
+
 
 
 - RSRSCBMS-11: User Login System
 
 
+
+
 - RSRSCBMS-12: Driver Registration System
+
+
 
 
 - RSRSCBMS-13: Driver Login System
 
 
+
+
 - RSRSCBMS-14: Admin Login System
+
+
 
 
 - RSRSCBMS-17: Role-Based Access Control
@@ -40,19 +52,31 @@ This document outlines the testing parameters verified locally for university IS
 ### Target JIRA Stories
 
 
+
+
 - RSRSCBMS-18: Pickup & Destination Form
+
+
 
 
 - RSRSCBMS-19: Fare Estimation Logic
 
 
+
+
 - RSRSCBMS-20: Ride Request Submission
+
+
 
 
 - RSRSCBMS-21: Driver Assignment Logic
 
 
+
+
 - RSRSCBMS-25: Peak Hour Pricing
+
+
 
 
 - RSRSCBMS-38: Coupon Application
@@ -72,19 +96,31 @@ This document outlines the testing parameters verified locally for university IS
 ### Target JIRA Stories
 
 
+
+
 - RSRSCBMS-34: Payment Method Selection
+
+
 
 
 - RSRSCBMS-35: Cash Payment Simulation
 
 
+
+
 - RSRSCBMS-36: bKash Payment Simulation
+
+
 
 
 - RSRSCBMS-37: Card Payment Simulation
 
 
+
+
 - RSRSCBMS-40: Driver Earnings Calculation
+
+
 
 
 - RSRSCBMS-41: Earnings Dashboard
@@ -106,16 +142,26 @@ This document outlines the testing parameters verified locally for university IS
 ### Target JIRA Stories
 
 
+
+
 - RSRSCBMS-49: Complaint Management
+
+
 
 
 - RSRSCBMS-50: SOS Button
 
 
+
+
 - RSRSCBMS-52: Emergency Alert Dashboard
 
 
+
+
 - RSRSCBMS-55: Feedback Submission
+
+
 
 
 - RSRSCBMS-56: Complaint Submission
@@ -126,6 +172,11 @@ This document outlines the testing parameters verified locally for university IS
 3. Log in as passenger, go to history, file complaint subject "Driver behaved rudely", and submit.
 4. Log in as admin, open **Complaint Tickets** side-tab, verify complaint exists, write admin reply, and click **Submit Resolution**.
      
+
+
+
+
+
 
 
 
