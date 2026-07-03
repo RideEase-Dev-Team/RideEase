@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS users (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
-
 -- ============================================================
 -- TABLE: drivers
 -- ============================================================
@@ -57,6 +56,8 @@ CREATE TABLE IF NOT EXISTS vehicles (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+
 
 -- ============================================================
 -- TABLE: peak_hours
@@ -186,7 +187,8 @@ CREATE TABLE IF NOT EXISTS sos_alerts (
     resolved_at DATETIME DEFAULT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ride_id) REFERENCES rides(id) ON DELETE SET NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (resolved_by) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 -- ============================================================
@@ -278,23 +280,23 @@ INSERT INTO vehicles (driver_id, make, model, year, color, plate_no, vehicle_typ
 -- Sample Rides
 INSERT INTO rides (passenger_id, driver_id, pickup_location, destination, distance_km, base_fare, peak_multiplier, discount_amount, final_fare, status, payment_method, created_at, completed_at) VALUES
 (2, 1, 'Mirpur 10, Dhaka', 'Motijheel, Dhaka', 8.50, 50.00, 1.00, 0.00, 152.00, 'completed', 'cash', DATE_SUB(NOW(), INTERVAL 5 DAY), DATE_SUB(NOW(), INTERVAL 5 DAY)),
-(2, 1, 'Dhanmondi 27, Dhaka', 'Gulshan 1, Dhaka', 6.20, 50.00, 1.50, 0.00, 161.60, 'completed', 'bkash', DATE_SUB(NOW(), INTERVAL 3 DAY), DATE_SUB(NOW(), INTERVAL 3 DAY)),
-(3, 2, 'Uttara, Dhaka', 'Farmgate, Dhaka', 12.00, 50.00, 1.75, 50.00, 204.00, 'completed', 'card', DATE_SUB(NOW(), INTERVAL 2 DAY), DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(2, 1, 'Dhanmondi 27, Dhaka', 'Gulshan 1, Dhaka', 6.20, 50.00, 1.50, 0.00, 186.60, 'completed', 'bkash', DATE_SUB(NOW(), INTERVAL 3 DAY), DATE_SUB(NOW(), INTERVAL 3 DAY)),
+(3, 2, 'Uttara, Dhaka', 'Farmgate, Dhaka', 12.00, 50.00, 1.75, 50.00, 289.50, 'completed', 'card', DATE_SUB(NOW(), INTERVAL 2 DAY), DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (2, NULL, 'Banani, Dhaka', 'Bashundhara, Dhaka', 5.00, 50.00, 1.00, 0.00, 110.00, 'cancelled', NULL, DATE_SUB(NOW(), INTERVAL 1 DAY), NULL),
 (3, 1, 'Rampura, Dhaka', 'Paltan, Dhaka', 7.30, 50.00, 1.00, 30.00, 107.60, 'completed', 'cash', DATE_SUB(NOW(), INTERVAL 7 DAY), DATE_SUB(NOW(), INTERVAL 7 DAY));
 
 -- Payments
 INSERT INTO payments (ride_id, amount, method, status, transaction_id, created_at) VALUES
 (1, 152.00, 'cash', 'completed', 'TXN-CASH-00001', DATE_SUB(NOW(), INTERVAL 5 DAY)),
-(2, 161.60, 'bkash', 'completed', 'TXN-BKS-78234', DATE_SUB(NOW(), INTERVAL 3 DAY)),
-(3, 204.00, 'card', 'completed', 'TXN-CRD-55123', DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(2, 186.60, 'bkash', 'completed', 'TXN-BKS-78234', DATE_SUB(NOW(), INTERVAL 3 DAY)),
+(3, 289.50, 'card', 'completed', 'TXN-CRD-55123', DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (5, 107.60, 'cash', 'completed', 'TXN-CASH-00002', DATE_SUB(NOW(), INTERVAL 7 DAY));
 
 -- Driver Earnings
 INSERT INTO driver_earnings (driver_id, ride_id, gross_amount, commission_pct, commission_amount, net_amount, created_at) VALUES
 (1, 1, 152.00, 20.00, 30.40, 121.60, DATE_SUB(NOW(), INTERVAL 5 DAY)),
-(1, 2, 161.60, 20.00, 32.32, 129.28, DATE_SUB(NOW(), INTERVAL 3 DAY)),
-(2, 3, 204.00, 20.00, 40.80, 163.20, DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(1, 2, 186.60, 20.00, 37.32, 149.28, DATE_SUB(NOW(), INTERVAL 3 DAY)),
+(2, 3, 289.50, 20.00, 57.90, 231.60, DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (1, 5, 107.60, 20.00, 21.52, 86.08, DATE_SUB(NOW(), INTERVAL 7 DAY));
 
 -- Cancellations
