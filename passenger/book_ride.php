@@ -1,14 +1,9 @@
 <?php
-// Include the database connection file
 require_once __DIR__ . '/../config/database.php';
-
-// Include session management and authentication functions
 require_once __DIR__ . '/../config/session.php';
 
-// Ensure that only passengers can access this page
 requirePassenger();
 
-// Create a database connection
 $db = getDB();
 
 // Get the currently logged-in user's ID
