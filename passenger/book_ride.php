@@ -1,7 +1,4 @@
 <?php
-// ============================================================
-// RideEase – Ride Booking & Fare Estimation Interface
-// ============================================================
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
@@ -11,7 +8,6 @@ requirePassenger();
 $db = getDB();
 $userId = currentUserId();
 
-// Fetch Favorite locations
 $favorites = [];
 try {
     $favStmt = $db->prepare("SELECT * FROM favorite_locations WHERE user_id = ?");
@@ -26,7 +22,6 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="dashboard-layout">
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
             <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
@@ -36,20 +31,17 @@ require_once __DIR__ . '/../includes/header.php';
         </ul>
     </aside>
 
-    <!-- Main Content Area -->
     <div class="dashboard-content">
         <h1 class="gradient-text">Book a New Ride</h1>
         <p class="text-secondary" style="margin-bottom: 2rem;">Select your pickup point and destination. You can click on the map to set coordinates directly.</p>
 
         <div class="grid-2">
-            <!-- Left Side: Interactive Map -->
             <div>
                 <div class="card" style="padding:0; overflow:hidden;">
                     <div id="map" style="height: 480px; width: 100%;"></div>
                 </div>
             </div>
 
-            <!-- Right Side: Booking Form details -->
             <div>
                 <div class="card">
                     <h3 class="gradient-text">Route Details</h3>
@@ -63,7 +55,6 @@ require_once __DIR__ . '/../includes/header.php';
                         <input type="hidden" name="discount_amount" id="discount_amount" value="0.00">
                         <input type="hidden" name="coupon_id" id="coupon_id" value="">
 
-                        <!-- Favorite location quick selections -->
                         <?php if (!empty($favorites)): ?>
                             <div class="form-group">
                                 <label><i class="fa-solid fa-star" style="color:var(--warning);"></i> Quick Fill from Favorites</label>
@@ -86,7 +77,6 @@ require_once __DIR__ . '/../includes/header.php';
                             <input type="text" name="destination" id="destination" class="form-control" placeholder="Enter dropoff location" required>
                         </div>
 
-                        <!-- Coupon Form Input -->
                         <div class="form-group">
                             <label for="coupon_code">Coupon Discount Code</label>
                             <div style="display:flex; gap:10px;">
@@ -95,7 +85,7 @@ require_once __DIR__ . '/../includes/header.php';
                             </div>
                         </div>
 
-                        <!-- Mode selection -->
+                    
                         <div class="form-group">
                             <label for="payment_method">Preferred Checkout Method</label>
                             <select name="payment_method" id="payment_method" class="form-control">
@@ -105,7 +95,7 @@ require_once __DIR__ . '/../includes/header.php';
                             </select>
                         </div>
 
-                        <!-- Live estimation outputs -->
+                
                         <div style="background-color: var(--bg-tertiary); padding:1rem; border-radius:8px; border:1px solid var(--border-color); margin-bottom: 1.5rem;">
                             <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
                                 <span class="text-secondary">Estimated Distance:</span>
@@ -125,7 +115,6 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
 </div>
 
-<!-- Leaflet integration files and local script init -->
 <script src="<?php echo BASE_URL; ?>/assets/js/booking.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -144,7 +133,7 @@ require_once __DIR__ . '/../includes/header.php';
             destInput.value = select.value;
             showToast("Set as dropoff Point.", "info");
         }
-        select.value = ''; // Reset dropdown
+        select.value = ''; 
     }
 </script>
 
