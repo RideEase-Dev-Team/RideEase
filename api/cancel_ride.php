@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 
+
 $rideId = isset($_POST['ride_id']) ? intval($_POST['ride_id']) : 0;
 $reason = sanitize($_POST['reason'] ?? 'Cancelled via user action');
 $role = currentUserRole();
@@ -21,6 +22,7 @@ $userId = currentUserId();
 if (!$rideId) {
     jsonResponse(['success' => false, 'message' => 'Ride ID is required.'], 400);
 }
+
 
 
 $db = getDB();
@@ -38,9 +40,11 @@ try {
     }
 
 
+
     if (in_array($ride['status'], ['completed', 'cancelled'])) {
         throw new Exception("Cannot cancel a completed or already cancelled ride.");
     }
+
 
 
     // Update status
@@ -58,6 +62,7 @@ try {
     }
 
 
+
     $db->commit();
     jsonResponse(['success' => true, 'message' => 'Ride successfully cancelled.']);
 } catch (Exception $e) {
@@ -65,8 +70,15 @@ try {
         $db->rollBack();
     }
 
+
     jsonResponse(['success' => false, 'message' => $e->getMessage()], 500);
 }
+
+
+
+
+
+
 
 
 
