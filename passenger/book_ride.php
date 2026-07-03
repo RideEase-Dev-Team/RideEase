@@ -1,27 +1,42 @@
 <?php
-
+// Include the database connection file
 require_once __DIR__ . '/../config/database.php';
+
+// Include session management and authentication functions
 require_once __DIR__ . '/../config/session.php';
 
+// Ensure that only passengers can access this page
 requirePassenger();
 
+// Create a database connection
 $db = getDB();
+
+// Get the currently logged-in user's ID
 $userId = currentUserId();
 
+// Initialize an array to store the user's favorite locations
 $favorites = [];
+
 try {
+    // Retrieve all favorite locations for the current user
     $favStmt = $db->prepare("SELECT * FROM favorite_locations WHERE user_id = ?");
     $favStmt->execute([$userId]);
     $favorites = $favStmt->fetchAll();
 } catch (PDOException $e) {
+    // Log any database errors without displaying them to the user
     error_log("Fav locations fetch error: " . $e->getMessage());
 }
 
+// Set the page title
 $pageTitle = "Book a Ride";
+
+// Include the common page header
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="dashboard-layout">
+
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
             <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
@@ -32,109 +47,241 @@ require_once __DIR__ . '/../includes/header.php';
     </aside>
 
     <div class="dashboard-content">
+
+        <!-- Page Heading -->
         <h1 class="gradient-text">Book a New Ride</h1>
-        <p class="text-secondary" style="margin-bottom: 2rem;">Select your pickup point and destination. You can click on the map to set coordinates directly.</p>
+
+        <!-- Short description for the passenger -->
+        <p class="text-secondary" style="margin-bottom: 2rem;">
+            Select your pickup point and destination. You can click on the map to set coordinates directly.
+        </p>
 
         <div class="grid-2">
+
+            <!-- Interactive Map -->
             <div>
                 <div class="card" style="padding:0; overflow:hidden;">
                     <div id="map" style="height: 480px; width: 100%;"></div>
                 </div>
             </div>
 
+            <!-- Ride Booking Form -->
             <div>
                 <div class="card">
+
                     <h3 class="gradient-text">Route Details</h3>
+
                     <form action="../api/book_ride.php" method="POST" id="booking-form">
+
+                        <!-- CSRF token to protect against CSRF attacks -->
                         <input type="hidden" name="csrf_token" value="<?php echo csrfToken(); ?>">
+
+                        <!-- Hidden coordinates generated from the map -->
                         <input type="hidden" name="pickup_coords" id="pickup_coords" required>
                         <input type="hidden" name="dest_coords" id="dest_coords" required>
+
+                        <!-- Hidden values used for fare calculation -->
                         <input type="hidden" name="distance_km" id="distance_km" required>
                         <input type="hidden" name="estimated_fare" id="estimated_fare_val" required>
+
+                        <!-- Peak-hour pricing multiplier -->
                         <input type="hidden" name="peak_multiplier" id="peak_multiplier" value="1.00">
+
+                        <!-- Coupon discount amount -->
                         <input type="hidden" name="discount_amount" id="discount_amount" value="0.00">
+
+                        <!-- Applied coupon ID -->
                         <input type="hidden" name="coupon_id" id="coupon_id" value="">
 
+                        <!-- Display favorite locations if available -->
                         <?php if (!empty($favorites)): ?>
+
                             <div class="form-group">
-                                <label><i class="fa-solid fa-star" style="color:var(--warning);"></i> Quick Fill from Favorites</label>
+
+                                <label>
+                                    <i class="fa-solid fa-star" style="color:var(--warning);"></i>
+                                    Quick Fill from Favorites
+                                </label>
+
+                                <!-- Dropdown containing saved favorite locations -->
                                 <select class="form-control" onchange="quickFillLocation(this)">
+
                                     <option value="">-- Choose Favorite Location --</option>
+
                                     <?php foreach ($favorites as $fav): ?>
-                                        <option value="<?php echo sanitize($fav['address']); ?>"><?php echo sanitize($fav['label'] . ': ' . $fav['address']); ?></option>
+
+                                        <option value="<?php echo sanitize($fav['address']); ?>">
+                                            <?php echo sanitize($fav['label'] . ': ' . $fav['address']); ?>
+                                        </option>
+
                                     <?php endforeach; ?>
+
                                 </select>
+
                             </div>
+
                         <?php endif; ?>
 
+                        <!-- Pickup Address -->
                         <div class="form-group">
                             <label for="pickup_location">Pickup Address</label>
-                            <input type="text" name="pickup_location" id="pickup_location" class="form-control" placeholder="Enter pickup spot" required>
+
+                            <input
+                                type="text"
+                                name="pickup_location"
+                                id="pickup_location"
+                                class="form-control"
+                                placeholder="Enter pickup spot"
+                                required>
                         </div>
 
+                        <!-- Destination Address -->
                         <div class="form-group">
                             <label for="destination">Dropoff Destination</label>
-                            <input type="text" name="destination" id="destination" class="form-control" placeholder="Enter dropoff location" required>
+
+                            <input
+                                type="text"
+                                name="destination"
+                                id="destination"
+                                class="form-control"
+                                placeholder="Enter dropoff location"
+                                required>
                         </div>
 
+                        <!-- Coupon Code Input -->
                         <div class="form-group">
+
                             <label for="coupon_code">Coupon Discount Code</label>
+
                             <div style="display:flex; gap:10px;">
-                                <input type="text" id="coupon_code" class="form-control" placeholder="WELCOME, RIDE10" style="text-transform:uppercase;">
-                                <button type="button" class="btn btn-secondary" onclick="applyCouponCode()">Apply</button>
+
+                                <input
+                                    type="text"
+                                    id="coupon_code"
+                                    class="form-control"
+                                    placeholder="WELCOME, RIDE10"
+                                    style="text-transform:uppercase;">
+
+                                <!-- Button to validate and apply coupon -->
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    onclick="applyCouponCode()">
+
+                                    Apply
+
+                                </button>
+
                             </div>
+
                         </div>
 
-                    
+                        <!-- Payment Method Selection -->
                         <div class="form-group">
+
                             <label for="payment_method">Preferred Checkout Method</label>
-                            <select name="payment_method" id="payment_method" class="form-control">
+
+                            <select
+                                name="payment_method"
+                                id="payment_method"
+                                class="form-control">
+
                                 <option value="cash">Cash Simulation</option>
                                 <option value="bkash">bKash Mobile Wallet</option>
                                 <option value="card">Visa / Debit Card</option>
+
                             </select>
+
                         </div>
 
-                
+                        <!-- Fare Summary Section -->
                         <div style="background-color: var(--bg-tertiary); padding:1rem; border-radius:8px; border:1px solid var(--border-color); margin-bottom: 1.5rem;">
-                            <div style="display:flex; justify-content:space-between; margin-bottom: 5px;">
+
+                            <!-- Estimated Distance -->
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                                 <span class="text-secondary">Estimated Distance:</span>
                                 <strong id="distance_display">0.00 km</strong>
                             </div>
+
+                            <!-- Estimated Fare -->
                             <div style="display:flex; justify-content:space-between;">
                                 <span class="text-secondary">Total Est. Price:</span>
-                                <strong id="fare_estimate_display" class="gradient-text" style="font-size:1.2rem;">৳ 0.00</strong>
+                                <strong id="fare_estimate_display" class="gradient-text" style="font-size:1.2rem;">
+                                    ৳ 0.00
+                                </strong>
                             </div>
+
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width:100%;">Confirm Booking Request</button>
+                        <!-- Submit Booking Button -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            style="width:100%;">
+
+                            Confirm Booking Request
+
+                        </button>
+
                     </form>
+
                 </div>
             </div>
+
         </div>
     </div>
+
 </div>
 
+<!-- Booking page JavaScript -->
 <script src="<?php echo BASE_URL; ?>/assets/js/booking.js"></script>
+
 <script>
+
+    // Initialize the interactive booking map once the page loads
     document.addEventListener('DOMContentLoaded', () => {
         initBookingMap();
     });
 
+    // Fill pickup or destination using a saved favorite location
     function quickFillLocation(select) {
+
+        // Exit if no location is selected
         if (!select.value) return;
+
         const pickupInput = document.getElementById('pickup_location');
         const destInput = document.getElementById('destination');
-        
+
+        // Fill pickup first if it is empty
         if (!pickupInput.value) {
+
             pickupInput.value = select.value;
-            showToast("Set as Pickup Point. Drag map to confirm coordinates.", "info");
+
+            showToast(
+                "Set as Pickup Point. Drag map to confirm coordinates.",
+                "info"
+            );
+
         } else {
+
+            // Otherwise fill the destination field
             destInput.value = select.value;
-            showToast("Set as dropoff Point.", "info");
+
+            showToast(
+                "Set as dropoff Point.",
+                "info"
+            );
+
         }
-        select.value = ''; 
+
+        // Reset the dropdown after selection
+        select.value = '';
+
     }
+
 </script>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php
+// Include the common page footer
+require_once __DIR__ . '/../includes/footer.php';
+?>
