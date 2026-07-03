@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
 
+
 verifyCsrf();
 
 $passengerId = currentUserId();
@@ -44,6 +45,7 @@ if (empty($pickup) || empty($dest) || $distance <= 0) {
     setFlash('danger', 'Please verify route points on map.');
     redirect('/passenger/book_ride.php');
 }
+
 
 
 
@@ -109,12 +111,14 @@ try {
 
 
 
+
     $db->commit();
     redirect("/passenger/track_ride.php?ride_id=" . $rideId);
 } catch (PDOException $e) {
     if ($db->inTransaction()) {
         $db->rollBack();
     }
+
 
 
 
@@ -142,7 +146,13 @@ try {
 
 
 
+
       
+
+
+
+
+
 
 
 
