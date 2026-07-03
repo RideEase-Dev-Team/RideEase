@@ -1,11 +1,7 @@
 <?php
-// ============================================================
-// RideEase – Login Page
-// ============================================================
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
-
 
 redirectIfLoggedIn();
 
@@ -30,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($user['is_active'] == 0) {
                     $error = "Your account has been deactivated. Please contact support.";
                 } else {
-                    // Start session variables
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['role'] = $user['role'];
                     $_SESSION['name'] = $user['name'];
@@ -38,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     setFlash('success', "Welcome back, " . $user['name'] . "!");
                     
-                    // Redirect based on role
                     if ($user['role'] === 'admin') {
                         redirect('/admin/dashboard.php');
                     } elseif ($user['role'] === 'driver') {
