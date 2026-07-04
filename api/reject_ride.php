@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
 
+
 $rideId = isset($_POST['ride_id']) ? intval($_POST['ride_id']) : 0;
 
 if (!$rideId) {
@@ -22,11 +23,17 @@ if (!$rideId) {
 
 
 
+
 // Simulating rejection logs: Driver skips assignment and matches next.
 jsonResponse([
     'success' => true,
     'message' => 'Ride request successfully skipped. Monitoring for new bookings.'
 ]);
+
+
+
+
+
 
 
 
