@@ -35,9 +35,11 @@ try {
 
 
 
+
 } catch (PDOException $e) {
     die("Error loading driver profile details.");
 }
+
 
 
 
@@ -69,6 +71,7 @@ try {
 
 
 
+
 // 3. Compute driver total net earnings
 $totalEarnings = 0.00;
 try {
@@ -78,6 +81,7 @@ try {
 } catch (PDOException $e) {
     error_log("Driver earnings fetch error: " . $e->getMessage());
 }
+
 
 
 
@@ -134,6 +138,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 
 
+
             .slider:before {
                 position: absolute;
                 content: "";
@@ -152,9 +157,11 @@ require_once __DIR__ . '/../includes/header.php';
 
 
 
+
             #availability-checkbox:checked + .slider:before {
                 transform: translateX(24px);
             }
+
 
 
 
@@ -268,11 +275,17 @@ require_once __DIR__ . '/../includes/header.php';
 
 
 
+
     });
 </script>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
  
+
+
+
+
+
 
 
 
