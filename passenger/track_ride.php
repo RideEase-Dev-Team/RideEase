@@ -33,6 +33,7 @@ if (!$rideId) {
 
 
 
+
 // Fetch ride status
 try {
     $stmt = $db->prepare("
@@ -66,10 +67,12 @@ try {
 
 
 
+
 } catch (PDOException $e) {
     setFlash('danger', "Database error loading ride tracker.");
     redirect('/passenger/dashboard.php');
 }
+
 
 
 
@@ -124,7 +127,9 @@ if (isset($_POST['action_cancel'])) {
 
 
 
+
 }
+
 
 
 
@@ -187,6 +192,7 @@ if (isset($_POST['submit_review'])) {
 
 
 
+
     }
 
 
@@ -203,7 +209,9 @@ if (isset($_POST['submit_review'])) {
 
 
 
+
 }
+
 
 
 
@@ -424,6 +432,11 @@ require_once __DIR__ . '/../includes/header.php';
 <script src="<?php echo BASE_URL; ?>/assets/js/booking.js"></script>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
        
+
+
+
+
+
 
 
 
