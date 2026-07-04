@@ -21,11 +21,13 @@ if (!$driver || !$driver['is_approved'] || $driver['is_suspended']) {
 }
 
 
+
 // 1. GET Polling check
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['check'])) {
     if (!$driver['is_available']) {
         jsonResponse(['success' => false, 'message' => 'Driver offline.']);
     }
+
 
     
     try {
@@ -45,11 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['check'])) {
             jsonResponse(['success' => false, 'message' => 'No active bookings matching.']);
         }
 
+
     } catch (PDOException $e) {
         jsonResponse(['success' => false, 'message' => 'Database query failed.'], 500);
     }
 
+
 }
+
 
 
 // 2. POST Accept Action
@@ -59,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$rideId) {
         jsonResponse(['success' => false, 'message' => 'Ride ID is required.'], 400);
     }
+
 
     
     try {
@@ -73,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->rollBack();
             jsonResponse(['success' => false, 'message' => 'Ride has already been matched or cancelled.']);
         }
+
 
         
         // Accept and assign driver
@@ -94,7 +101,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         jsonResponse(['success' => false, 'message' => 'Accept failed: ' . $e->getMessage()], 500);
     }
 
+
 }
+
+
+
+
+
+
 
 
 
