@@ -41,6 +41,7 @@ if (isset($_POST['update_profile'])) {
 
 
 
+
     }
 
 
@@ -52,7 +53,9 @@ if (isset($_POST['update_profile'])) {
 
 
 
+
 }
+
 
 
 
@@ -81,6 +84,7 @@ try {
 } catch (PDOException $e) {
     die("Database fetch error for profile fields.");
 }
+
 
 
 
@@ -189,6 +193,11 @@ require_once __DIR__ . '/../includes/header.php';
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
    
+
+
+
+
+
 
 
 
