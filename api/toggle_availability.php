@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
 
+
 $status = isset($_POST['is_available']) ? intval($_POST['is_available']) : 0;
 $userId = currentUserId();
 
@@ -31,15 +32,18 @@ try {
 
 
 
+
     if (!$driver['is_approved']) {
         jsonResponse(['success' => false, 'message' => 'Your application is pending admin approval. You cannot go online yet.']);
     }
 
 
 
+
     if ($driver['is_suspended']) {
         jsonResponse(['success' => false, 'message' => 'Your account is suspended. Check with administrator.']);
     }
+
 
 
 
@@ -54,6 +58,12 @@ try {
 } catch (PDOException $e) {
     jsonResponse(['success' => false, 'message' => 'Failed to update availability status.'], 500);
 }
+
+
+
+
+
+
 
 
 
