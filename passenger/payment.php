@@ -42,17 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $method = sanitize($_POST['payment_method']);
     
-    // Generate simulated TXN reference
     $txnRef = 'TXN-' . strtoupper($method) . '-' . rand(10000, 99999);
 
     try {
         $db->beginTransaction();
 
-        // 1. Insert into payments
         $payInsert = $db->prepare("INSERT INTO payments (ride_id, amount, method, status, transaction_id) VALUES (?, ?, ?, 'completed', ?)");
         $payInsert->execute([$rideId, $ride['final_fare'], $method, $txnRef]);
 
-        // 2. Insert into driver earnings if driver assigned
         if ($ride['driver_id']) {
             $gross = $ride['final_fare'];
             $commPct = PLATFORM_COMMISSION; // 20.00%
