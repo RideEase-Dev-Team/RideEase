@@ -14,7 +14,6 @@ if (!$rideId) {
     redirect('/passenger/dashboard.php');
 }
 
-// Fetch ride details
 try {
     $stmt = $db->prepare("SELECT * FROM rides WHERE id = ? AND passenger_id = ? AND status = 'completed'");
     $stmt->execute([$rideId, $userId]);
@@ -25,7 +24,6 @@ try {
         redirect('/passenger/dashboard.php');
     }
 
-    // Check if already paid
     $payStmt = $db->prepare("SELECT status FROM payments WHERE ride_id = ?");
     $payStmt->execute([$rideId]);
     $paidStatus = $payStmt->fetchColumn();
@@ -39,7 +37,6 @@ try {
     redirect('/passenger/dashboard.php');
 }
 
-// Settle Payment Action Form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verifyCsrf();
     
