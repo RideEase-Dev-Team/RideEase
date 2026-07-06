@@ -108,7 +108,6 @@ require_once __DIR__ . '/../includes/header.php';
                 </select>
             </div>
 
-            <!-- bKash Simulation Form UI -->
             <div id="bkash-sim-fields" style="display:none; border: 1px solid #E2125B; padding: 1rem; border-radius: 8px; background: rgba(226, 18, 91, 0.05); margin-bottom: 1.5rem; animation: slideDown 0.3s ease;">
                 <div style="text-align:center; margin-bottom:1rem;">
                     <strong style="color:#E2125B; font-size: 1.1rem;">bKash Payment Gateway Sandbox</strong>
@@ -123,7 +122,6 @@ require_once __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
-            <!-- Credit Card Simulation Form UI -->
             <div id="card-sim-fields" style="display:none; border: 1px solid var(--accent-cyan); padding: 1rem; border-radius: 8px; background: rgba(0, 240, 255, 0.05); margin-bottom: 1.5rem; animation: slideDown 0.3s ease;">
                 <div style="text-align:center; margin-bottom:1rem;">
                     <strong style="color:var(--accent-cyan); font-size: 1.1rem;">Visa / Mastercard Gateway Sandbox</strong>
