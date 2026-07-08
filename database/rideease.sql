@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS peak_hours (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: coupons
+-- TABLE: coupons (structures to store and track coupon codes)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS coupons (
     id INT AUTO_INCREMENT PRIMARY KEY,
