@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS payments (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: driver_earnings
+-- TABLE: driver_earnings (implements gross earnings and commission deduction schema)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS driver_earnings (
     id INT AUTO_INCREMENT PRIMARY KEY,
