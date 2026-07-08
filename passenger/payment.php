@@ -21,6 +21,7 @@ if (!$rideId) {
 
 
 
+
 // Fetch ride details
 try {
     $stmt = $db->prepare("SELECT * FROM rides WHERE id = ? AND passenger_id = ? AND status = 'completed'");
@@ -31,6 +32,7 @@ try {
         setFlash('danger', "Completed ride not found or access denied.");
         redirect('/passenger/dashboard.php');
     }
+
 
 
 
@@ -47,10 +49,12 @@ try {
 
 
 
+
 } catch (PDOException $e) {
     setFlash('danger', "Database error loading checkout details.");
     redirect('/passenger/dashboard.php');
 }
+
 
 
 
@@ -88,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
+
         $db->commit();
         setFlash('success', "Simulated payment of " . formatBDT($ride['final_fare']) . " completed via " . strtoupper($method));
         redirect("/passenger/track_ride.php?ride_id=" . $rideId);
@@ -98,7 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
+
 }
+
 
 
 
@@ -200,13 +207,20 @@ require_once __DIR__ . '/../includes/header.php';
 
 
 
+
     }
+
 
 
 
 </script>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+
+
+
+
 
 
 
