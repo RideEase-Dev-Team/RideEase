@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS cancellations (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: payments
+-- TABLE: payments (stores payment confirmations and transaction references)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS payments (
     id INT AUTO_INCREMENT PRIMARY KEY,
