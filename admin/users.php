@@ -39,7 +39,9 @@ if (isset($_GET['toggle_active'])) {
 
 
 
+
     }
+
 
 
 
@@ -52,6 +54,7 @@ if (isset($_GET['toggle_active'])) {
 
     redirect('/admin/users.php');
 }
+
 
 
 
@@ -87,7 +90,9 @@ if (isset($_GET['delete_user'])) {
 
 
 
+
     }
+
 
 
 
@@ -100,6 +105,7 @@ if (isset($_GET['delete_user'])) {
 
     redirect('/admin/users.php');
 }
+
 
 
 
@@ -131,11 +137,13 @@ try {
 
 
 
+
     
     if ($role !== 'all') {
         $sql .= " AND role = ?";
         array_push($params, $role);
     }
+
 
 
 
@@ -155,6 +163,7 @@ try {
 } catch (PDOException $e) {
     die("Error compiling user list: " . $e->getMessage());
 }
+
 
 
 
@@ -276,6 +285,11 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+
+
+
+
 
 
 
