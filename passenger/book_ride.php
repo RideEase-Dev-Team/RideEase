@@ -25,7 +25,6 @@ require_once __DIR__ . '/../includes/header.php';
 
 <div class="dashboard-layout">
 
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
             <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
@@ -37,10 +36,8 @@ require_once __DIR__ . '/../includes/header.php';
 
     <div class="dashboard-content">
 
-        <!-- Page Heading -->
         <h1 class="gradient-text">Book a New Ride</h1>
 
-        <!-- Short description for the passenger -->
         <p class="text-secondary" style="margin-bottom: 2rem;">
             Select your pickup point and destination. You can click on the map to set coordinates directly.
         </p>
