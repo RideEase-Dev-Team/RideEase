@@ -15,14 +15,11 @@ try {
     $favStmt->execute([$userId]);
     $favorites = $favStmt->fetchAll();
 } catch (PDOException $e) {
-    // Log any database errors without displaying them to the user
     error_log("Fav locations fetch error: " . $e->getMessage());
 }
 
-// Set the page title
 $pageTitle = "Book a Ride";
 
-// Include the common page header
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
