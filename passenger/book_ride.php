@@ -8,11 +8,9 @@ $db = getDB();
 
 $userId = currentUserId();
 
-// Initialize an array to store the user's favorite locations
 $favorites = [];
 
 try {
-    // Retrieve all favorite locations for the current user
     $favStmt = $db->prepare("SELECT * FROM favorite_locations WHERE user_id = ?");
     $favStmt->execute([$userId]);
     $favorites = $favStmt->fetchAll();
