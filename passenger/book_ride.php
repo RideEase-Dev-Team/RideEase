@@ -6,7 +6,6 @@ requirePassenger();
 
 $db = getDB();
 
-// Get the currently logged-in user's ID
 $userId = currentUserId();
 
 // Initialize an array to store the user's favorite locations
