@@ -29,8 +29,10 @@ if (isset($_GET['approve'])) {
 
 
 
+
     redirect('/admin/drivers.php');
 }
+
 
 
 
@@ -62,8 +64,10 @@ if (isset($_GET['toggle_suspend'])) {
 
 
 
+
     redirect('/admin/drivers.php');
 }
+
 
 
 
@@ -86,6 +90,7 @@ try {
 } catch (PDOException $e) {
     die("Error compiling drivers list.");
 }
+
 
 
 
@@ -194,6 +199,11 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+
+
+
+
 
 
 
