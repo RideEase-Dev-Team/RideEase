@@ -1,7 +1,4 @@
 <?php
-// ============================================================
-// RideEase – Passenger Dashboard
-// ============================================================
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
@@ -11,7 +8,6 @@ requirePassenger();
 $db = getDB();
 $userId = currentUserId();
 
-// 1. Check for any active ongoing ride (status != completed and != cancelled)
 $activeRide = null;
 try {
     $activeStmt = $db->prepare("
@@ -29,7 +25,6 @@ try {
     error_log("Active ride check error: " . $e->getMessage());
 }
 
-// 2. Fetch completed/cancelled ride history
 $rides = [];
 try {
     $historyStmt = $db->prepare("
