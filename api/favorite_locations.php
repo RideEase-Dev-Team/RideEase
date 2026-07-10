@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – API: Fetch Passenger Favorite Locations (Design JSON payload endpoints & save details to database)
+// RideEase – API: Fetch Passenger Favorite Locations (Design JSON payload endpoints, save details to database & validate coordinates/labels)
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
