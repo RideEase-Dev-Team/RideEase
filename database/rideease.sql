@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS drivers (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: vehicles (includes status fields for registration and updates)
+-- TABLE: vehicles (includes verification state and approval status fields)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS peak_hours (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: coupons
+-- TABLE: coupons (database schemas for creating, updating, and tracking coupons)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS coupons (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS cancellations (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: payments
+-- TABLE: payments (stores payment confirmations and transaction references)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS payments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS payments (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: driver_earnings
+-- TABLE: driver_earnings (implements gross earnings and commission deduction schema)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS driver_earnings (
     id INT AUTO_INCREMENT PRIMARY KEY,
