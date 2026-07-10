@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
 
+
 $rideId = !empty($_POST['ride_id']) ? intval($_POST['ride_id']) : null;
 $message = sanitize($_POST['message'] ?? 'SOS Triggered by User');
 $userId = currentUserId();
@@ -40,6 +41,12 @@ try {
 } catch (PDOException $e) {
     jsonResponse(['success' => false, 'message' => 'Failed to log SOS alert: ' . $e->getMessage()], 500);
 }
+
+
+
+
+
+
 
 
 
