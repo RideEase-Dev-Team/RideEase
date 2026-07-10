@@ -75,7 +75,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-2: User Registration System
+
+
 
 
 
@@ -213,7 +217,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-12: Driver Registration System
+
+
 
 
 
@@ -351,7 +359,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-14: Admin Login System
+
+
 
 
 
@@ -502,7 +514,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-18: Pickup & Destination Form
+
+
 
 
 
@@ -640,7 +656,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-20: Ride Request Submission
+
+
 
 
 
@@ -778,7 +798,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-25: Peak Hour Pricing
+
+
 
 
 
@@ -930,7 +954,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-34: Payment Method Selection
+
+
 
 
 
@@ -1068,7 +1096,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-36: bKash Payment Simulation
+
+
 
 
 
@@ -1206,7 +1238,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-40: Driver Earnings Calculation
+
+
 
 
 
@@ -1360,7 +1396,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-49: Complaint Management
+
+
 
 
 
@@ -1498,7 +1538,11 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-52: Emergency Alert Dashboard
+
+
 
 
 
@@ -1636,6 +1680,8 @@ This document outlines the testing parameters verified locally for university IS
 
 
 
+
+
 - RSRSCBMS-56: Complaint Submission
 
 ### Steps to Verify
@@ -1644,6 +1690,11 @@ This document outlines the testing parameters verified locally for university IS
 3. Log in as passenger, go to history, file complaint subject "Driver behaved rudely", and submit.
 4. Log in as admin, open **Complaint Tickets** side-tab, verify complaint exists, write admin reply, and click **Submit Resolution**.
      
+
+
+
+
+
 
 
 
