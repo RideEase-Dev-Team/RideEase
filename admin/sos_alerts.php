@@ -25,8 +25,10 @@ if (isset($_GET['resolve'])) {
         setFlash('danger', "Failed to resolve emergency alert.");
     }
 
+
     redirect('/admin/sos_alerts.php');
 }
+
 
 
 // Fetch all SOS alerts
@@ -42,6 +44,7 @@ try {
 } catch (PDOException $e) {
     die("Error compiling emergency alerts.");
 }
+
 
 
 $pageTitle = "SOS Emergency Panel";
@@ -127,6 +130,11 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+
+
+
+
 
 
 
