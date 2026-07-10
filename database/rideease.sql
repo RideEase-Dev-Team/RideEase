@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS drivers (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: vehicles (includes verification state and approval status fields)
+-- TABLE: vehicles (stores registered vehicle details and driver credentials)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
