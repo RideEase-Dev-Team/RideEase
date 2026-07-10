@@ -1,8 +1,4 @@
 <?php
-// ============================================================
-// RideEase – Driver Registration Page
-// ============================================================
-
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
 
@@ -14,14 +10,12 @@ $success = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verifyCsrf();
 
-    // Personal details
     $name = sanitize($_POST['name']);
     $email = sanitize($_POST['email']);
     $phone = sanitize($_POST['phone']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     
-    // Driver Details
     $license_no = sanitize($_POST['license_no']);
     $nid_no = sanitize($_POST['nid_no']);
     $experience_years = intval($_POST['experience_years']);
