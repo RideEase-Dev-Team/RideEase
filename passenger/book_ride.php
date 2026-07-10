@@ -6,32 +6,25 @@ requirePassenger();
 
 $db = getDB();
 
-// Get the currently logged-in user's ID
 $userId = currentUserId();
 
-// Initialize an array to store the user's favorite locations
 $favorites = [];
 
 try {
-    // Retrieve all favorite locations for the current user
     $favStmt = $db->prepare("SELECT * FROM favorite_locations WHERE user_id = ?");
     $favStmt->execute([$userId]);
     $favorites = $favStmt->fetchAll();
 } catch (PDOException $e) {
-    // Log any database errors without displaying them to the user
     error_log("Fav locations fetch error: " . $e->getMessage());
 }
 
-// Set the page title
 $pageTitle = "Book a Ride";
 
-// Include the common page header
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="dashboard-layout">
 
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <ul class="sidebar-menu">
             <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
@@ -43,10 +36,8 @@ require_once __DIR__ . '/../includes/header.php';
 
     <div class="dashboard-content">
 
-        <!-- Page Heading -->
         <h1 class="gradient-text">Book a New Ride</h1>
 
-        <!-- Short description for the passenger -->
         <p class="text-secondary" style="margin-bottom: 2rem;">
             Select your pickup point and destination. You can click on the map to set coordinates directly.
         </p>
