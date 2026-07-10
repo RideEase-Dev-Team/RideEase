@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – API: Submit Driver Rating & Feedback (Design user rating feedback submission forms & save feedback details to database)
+// RideEase – API: Submit Driver Rating & Feedback (Design user rating feedback submission forms, save feedback details & compute updated driver average star ratings)
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
