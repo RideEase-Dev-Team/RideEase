@@ -8,8 +8,6 @@ require_once __DIR__ . '/../config/session.php';
 
 redirectIfLoggedIn();
 
-
-
 $error = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -113,3 +111,4 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+    

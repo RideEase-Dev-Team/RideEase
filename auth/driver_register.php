@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – Driver Registration Page (Includes Vehicle info layout & inputs validation)
+// RideEase – Driver Registration Page
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';

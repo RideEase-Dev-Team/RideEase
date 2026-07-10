@@ -13,6 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect('/passenger/book_ride.php');
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 verifyCsrf();
 
 $passengerId = currentUserId();
@@ -32,6 +46,20 @@ if (empty($pickup) || empty($dest) || $distance <= 0) {
     setFlash('danger', 'Please verify route points on map.');
     redirect('/passenger/book_ride.php');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $db = getDB();
 
@@ -73,12 +101,124 @@ try {
         setFlash('warning', "Booking requested! Searching for available drivers...");
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $db->commit();
     redirect("/passenger/track_ride.php?ride_id=" . $rideId);
 } catch (PDOException $e) {
     if ($db->inTransaction()) {
         $db->rollBack();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     setFlash('danger', "Booking process failed: " . $e->getMessage());
     redirect('/passenger/book_ride.php');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

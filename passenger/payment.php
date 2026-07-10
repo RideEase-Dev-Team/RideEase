@@ -1,145 +1,121 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| RideEase - Passenger Payment Module
-|--------------------------------------------------------------------------
-| This section handles the backend logic for the passenger payment page.
-| It validates the ride, prevents duplicate payments, processes the
-| simulated payment, records driver earnings, and ensures secure
-| transactions using CSRF protection and database transactions.
-|--------------------------------------------------------------------------
-*/
+// ============================================================
+// RideEase – Payment Checkout Simulation Page
+// ============================================================
 
-// Include database connection and session management files.
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
 
-// Allow access only to authenticated passengers.
 requirePassenger();
 
-// Create a database connection and retrieve the logged-in passenger ID.
 $db = getDB();
 $userId = currentUserId();
 
-// Retrieve the ride ID from the URL.
 $rideId = isset($_GET['ride_id']) ? intval($_GET['ride_id']) : 0;
 
-// Validate the ride ID before proceeding.
 if (!$rideId) {
     setFlash('danger', "Invalid ride ID for checkout.");
     redirect('/passenger/dashboard.php');
 }
 
+
+
+
+
+
+// Fetch ride details
 try {
-    // Retrieve the completed ride that belongs to the current passenger.
     $stmt = $db->prepare("SELECT * FROM rides WHERE id = ? AND passenger_id = ? AND status = 'completed'");
     $stmt->execute([$rideId, $userId]);
     $ride = $stmt->fetch();
 
-    // Stop execution if the ride does not exist or does not belong to the passenger.
     if (!$ride) {
         setFlash('danger', "Completed ride not found or access denied.");
         redirect('/passenger/dashboard.php');
     }
 
-    // Check whether the ride has already been paid.
+
+
+
+
+
+    // Check if already paid
     $payStmt = $db->prepare("SELECT status FROM payments WHERE ride_id = ?");
     $payStmt->execute([$rideId]);
     $paidStatus = $payStmt->fetchColumn();
 
-    // Prevent duplicate payment for the same ride.
     if ($paidStatus === 'completed') {
         setFlash('warning', "This ride has already been paid.");
         redirect("/passenger/track_ride.php?ride_id=" . $rideId);
     }
+
+
+
+
+
 } catch (PDOException $e) {
-    // Handle database errors while loading ride information.
     setFlash('danger', "Database error loading checkout details.");
     redirect('/passenger/dashboard.php');
 }
 
-// Process the payment when the form is submitted.
+
+
+
+
+
+// Settle Payment Action Form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Verify the CSRF token to protect against forged requests.
     verifyCsrf();
-
-    // Retrieve and sanitize the selected payment method.
+    
     $method = sanitize($_POST['payment_method']);
-
-    // Generate a simulated transaction reference.
+    
+    // Generate simulated TXN reference
     $txnRef = 'TXN-' . strtoupper($method) . '-' . rand(10000, 99999);
 
     try {
-        // Start a database transaction to ensure data consistency.
         $db->beginTransaction();
 
-        // Record the completed payment.
-        $payInsert = $db->prepare("
-            INSERT INTO payments (ride_id, amount, method, status, transaction_id)
-            VALUES (?, ?, ?, 'completed', ?)
-        ");
-        $payInsert->execute([
-            $rideId,
-            $ride['final_fare'],
-            $method,
-            $txnRef
-        ]);
+        // 1. Insert into payments
+        $payInsert = $db->prepare("INSERT INTO payments (ride_id, amount, method, status, transaction_id) VALUES (?, ?, ?, 'completed', ?)");
+        $payInsert->execute([$rideId, $ride['final_fare'], $method, $txnRef]);
 
-        // Calculate and store the driver's earnings if a driver is assigned.
+        // 2. Insert into driver earnings if driver assigned
         if ($ride['driver_id']) {
-
             $gross = $ride['final_fare'];
-
-            // Platform commission percentage.
-            $commPct = PLATFORM_COMMISSION;
-
-            // Calculate commission and driver's net earnings.
+            $commPct = PLATFORM_COMMISSION; // 20.00%
             $commission = $gross * ($commPct / 100);
             $net = $gross - $commission;
 
-            // Insert the driver's earnings into the database.
             $earnInsert = $db->prepare("
-                INSERT INTO driver_earnings
-                (driver_id, ride_id, gross_amount, commission_pct, commission_amount, net_amount)
+                INSERT INTO driver_earnings (driver_id, ride_id, gross_amount, commission_pct, commission_amount, net_amount) 
                 VALUES (?, ?, ?, ?, ?, ?)
             ");
-
-            $earnInsert->execute([
-                $ride['driver_id'],
-                $ride['id'],
-                $gross,
-                $commPct,
-                $commission,
-                $net
-            ]);
+            $earnInsert->execute([$ride['driver_id'], $ride['id'], $gross, $commPct, $commission, $net]);
         }
 
-        // Save all changes to the database.
+
+
+
+
+
         $db->commit();
-
-        // Display a success message and redirect to the ride tracking page.
-        setFlash(
-            'success',
-            "Simulated payment of " .
-            formatBDT($ride['final_fare']) .
-            " completed via " .
-            strtoupper($method)
-        );
-
+        setFlash('success', "Simulated payment of " . formatBDT($ride['final_fare']) . " completed via " . strtoupper($method));
         redirect("/passenger/track_ride.php?ride_id=" . $rideId);
-
     } catch (PDOException $e) {
-
-        // Roll back all database changes if an error occurs.
-        if ($db->inTransaction()) {
-            $db->rollBack();
-        }
-
-        // Display an error message to the passenger.
+        if ($db->inTransaction()) $db->rollBack();
         setFlash('danger', "Checkout simulation failed: " . $e->getMessage());
     }
+
+
+
+
+
 }
+
+
+
+
+
 
 $pageTitle = "Settle Ride Payment";
 require_once __DIR__ . '/../includes/header.php';
@@ -177,6 +153,7 @@ require_once __DIR__ . '/../includes/header.php';
                 </select>
             </div>
 
+            <!-- bKash Simulation Form UI -->
             <div id="bkash-sim-fields" style="display:none; border: 1px solid #E2125B; padding: 1rem; border-radius: 8px; background: rgba(226, 18, 91, 0.05); margin-bottom: 1.5rem; animation: slideDown 0.3s ease;">
                 <div style="text-align:center; margin-bottom:1rem;">
                     <strong style="color:#E2125B; font-size: 1.1rem;">bKash Payment Gateway Sandbox</strong>
@@ -191,6 +168,7 @@ require_once __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
+            <!-- Credit Card Simulation Form UI -->
             <div id="card-sim-fields" style="display:none; border: 1px solid var(--accent-cyan); padding: 1rem; border-radius: 8px; background: rgba(0, 240, 255, 0.05); margin-bottom: 1.5rem; animation: slideDown 0.3s ease;">
                 <div style="text-align:center; margin-bottom:1rem;">
                     <strong style="color:var(--accent-cyan); font-size: 1.1rem;">Visa / Mastercard Gateway Sandbox</strong>
@@ -233,7 +211,42 @@ require_once __DIR__ . '/../includes/header.php';
         } else if (val === 'card') {
             card.style.display = 'block';
         }
+
+
+
+
+
     }
+
+
+
+
+
 </script>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

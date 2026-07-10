@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – API: Trigger SOS Emergency distress alert (Design payload fields, save details, query status & update alert status to resolved)
+// RideEase – API: Trigger SOS Emergency distress alert
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
@@ -11,6 +11,14 @@ requireLogin();
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(['success' => false, 'message' => 'Invalid request method.'], 405);
 }
+
+
+
+
+
+
+
+
 
 $rideId = !empty($_POST['ride_id']) ? intval($_POST['ride_id']) : null;
 $message = sanitize($_POST['message'] ?? 'SOS Triggered by User');
@@ -33,3 +41,51 @@ try {
 } catch (PDOException $e) {
     jsonResponse(['success' => false, 'message' => 'Failed to log SOS alert: ' . $e->getMessage()], 500);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
