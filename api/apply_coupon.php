@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – API: Validate and Apply Coupon Discount Code (Check status, expiration & compute discount values)
+// RideEase – API: Validate and Apply Coupon Discount Code (Check status, expiration, compute discount & update ride entries)
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
