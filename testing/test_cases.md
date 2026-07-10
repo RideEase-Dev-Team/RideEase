@@ -1,4 +1,4 @@
-# RideEase – Manual Test Case & Verification Document (Includes User Role Flow Verification)
+# RideEase – Manual Test Case & Verification Document (Includes User Role Flow & Cancellation Logs Verification)
 
 This document outlines the testing parameters verified locally for university ISD project acceptance.
 
