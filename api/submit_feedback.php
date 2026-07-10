@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – API: Submit Complaint / Feedback Ticket (Design layout for complaint detail inputs)
+// RideEase – API: Submit Complaint / Feedback Ticket (Design layout & save ticket details to database)
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
