@@ -1,4 +1,4 @@
-# RideEase – Manual Test Case & Verification Document (Includes Driver Ride History, Trip Logs & Star Reviews Verification)
+# RideEase – Manual Test Case & Verification Document (Includes Driver Ride History, Trip Logs, Star Reviews, Dashboard Stats, Driver Rankings, Daily Sales Charts, Peak Pricing Surcharges, Vehicle Registration QA, Emergency Logs, Coupon Application, Platform Analytics, Emergency Alerts, Feedback, Platform Complaints & Dashboard Metrics Verification)
 
 This document outlines the testing parameters verified locally for university ISD project acceptance.
 

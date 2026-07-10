@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS drivers (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: vehicles (includes verification state and approval status fields)
+-- TABLE: vehicles (stores registered vehicle details and driver credentials)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS sos_alerts (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: complaints
+-- TABLE: complaints (stores user complaints and support ticket submission structures)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS complaints (
     id INT AUTO_INCREMENT PRIMARY KEY,
