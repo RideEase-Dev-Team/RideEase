@@ -44,14 +44,12 @@ require_once __DIR__ . '/../includes/header.php';
 
         <div class="grid-2">
 
-            <!-- Interactive Map -->
             <div>
                 <div class="card" style="padding:0; overflow:hidden;">
                     <div id="map" style="height: 480px; width: 100%;"></div>
                 </div>
             </div>
 
-            <!-- Ride Booking Form -->
             <div>
                 <div class="card">
 
@@ -59,10 +57,8 @@ require_once __DIR__ . '/../includes/header.php';
 
                     <form action="../api/book_ride.php" method="POST" id="booking-form">
 
-                        <!-- CSRF token to protect against CSRF attacks -->
                         <input type="hidden" name="csrf_token" value="<?php echo csrfToken(); ?>">
 
-                        <!-- Hidden coordinates generated from the map -->
                         <input type="hidden" name="pickup_coords" id="pickup_coords" required>
                         <input type="hidden" name="dest_coords" id="dest_coords" required>
 
