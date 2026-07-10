@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – API: Trigger SOS Emergency distress alert (Design payload fields, save details & query alert details for admin tracking)
+// RideEase – API: Trigger SOS Emergency distress alert (Design payload fields, save details, query status & update alert status to resolved)
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
