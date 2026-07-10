@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS sos_alerts (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- TABLE: complaints (stores user complaints and support ticket replies)
+-- TABLE: complaints (stores user complaints and support ticket submission structures)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS complaints (
     id INT AUTO_INCREMENT PRIMARY KEY,
