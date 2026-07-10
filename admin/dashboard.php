@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// RideEase – Admin Dashboard Home (Design layout for graphs & log custom analytics queries)
+// RideEase – Admin Dashboard Home (Design layout, log queries & integrate API responses to visual blocks)
 // ============================================================
 
 require_once __DIR__ . '/../config/database.php';
