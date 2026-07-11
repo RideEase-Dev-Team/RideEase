@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
 
+
 $rideId = isset($_POST['ride_id']) ? intval($_POST['ride_id']) : 0;
 $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
 $feedback = sanitize($_POST['feedback'] ?? '');
@@ -27,6 +28,7 @@ $userId = currentUserId();
 if (!$rideId || $rating < 1 || $rating > 5) {
     jsonResponse(['success' => false, 'message' => 'Invalid rating values. Must be 1 to 5 stars.'], 400);
 }
+
 
 
 
@@ -48,6 +50,7 @@ try {
     if (!$ride || $ride['status'] !== 'completed') {
         throw new Exception("Unable to rate this ride. Trip might not be completed yet.");
     }
+
 
 
 
@@ -81,8 +84,15 @@ try {
 
 
 
+
     jsonResponse(['success' => false, 'message' => $e->getMessage()], 500);
 }
+
+
+
+
+
+
 
 
 
