@@ -9,7 +9,9 @@ CREATE DATABASE IF NOT EXISTS rideease_db CHARACTER SET utf8mb4 COLLATE utf8mb4_
 
 
 
+
 USE rideease_db;
+
 
 
 
@@ -30,6 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
 
 
 
@@ -57,6 +60,7 @@ CREATE TABLE IF NOT EXISTS drivers (
 
 
 
+
 -- ============================================================
 -- TABLE: vehicles
 -- ============================================================
@@ -73,6 +77,7 @@ CREATE TABLE IF NOT EXISTS vehicles (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
 
 
 
@@ -95,6 +100,7 @@ CREATE TABLE IF NOT EXISTS peak_hours (
 
 
 
+
 -- ============================================================
 -- TABLE: coupons
 -- ============================================================
@@ -110,6 +116,7 @@ CREATE TABLE IF NOT EXISTS coupons (
     expires_at DATE NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
 
 
 
@@ -145,6 +152,7 @@ CREATE TABLE IF NOT EXISTS rides (
 
 
 
+
 -- ============================================================
 -- TABLE: cancellations
 -- ============================================================
@@ -163,6 +171,7 @@ CREATE TABLE IF NOT EXISTS cancellations (
 
 
 
+
 -- ============================================================
 -- TABLE: payments
 -- ============================================================
@@ -176,6 +185,7 @@ CREATE TABLE IF NOT EXISTS payments (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ride_id) REFERENCES rides(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
 
 
 
@@ -201,6 +211,7 @@ CREATE TABLE IF NOT EXISTS driver_earnings (
 
 
 
+
 -- ============================================================
 -- TABLE: ratings
 -- ============================================================
@@ -221,6 +232,7 @@ CREATE TABLE IF NOT EXISTS ratings (
 
 
 
+
 -- ============================================================
 -- TABLE: sos_alerts
 -- ============================================================
@@ -236,6 +248,7 @@ CREATE TABLE IF NOT EXISTS sos_alerts (
     FOREIGN KEY (ride_id) REFERENCES rides(id) ON DELETE SET NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
 
 
 
@@ -262,6 +275,7 @@ CREATE TABLE IF NOT EXISTS complaints (
 
 
 
+
 -- ============================================================
 -- TABLE: favorite_locations
 -- ============================================================
@@ -273,6 +287,7 @@ CREATE TABLE IF NOT EXISTS favorite_locations (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
 
 
 
@@ -301,6 +316,7 @@ INSERT INTO peak_hours (day_of_week, start_time, end_time, multiplier, label) VA
 
 
 
+
 -- Coupons
 INSERT INTO coupons (code, discount_type, discount_value, min_fare, max_uses, is_active, expires_at) VALUES
 ('RIDE10', 'percent', 10.00, 100.00, 500, 1, '2027-12-31'),
@@ -313,11 +329,13 @@ INSERT INTO coupons (code, discount_type, discount_value, min_fare, max_uses, is
 
 
 
+
 -- Users (passwords are bcrypt hashed)
 -- Admin: Admin@123
 INSERT INTO users (name, email, phone, password_hash, role, is_active) VALUES
 ('System Admin', 'admin@rideease.com', '01700000000',
  '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'admin', 1);
+
 
 
 
@@ -334,12 +352,14 @@ INSERT INTO users (name, email, phone, password_hash, role, is_active) VALUES
 
 
 
+
 -- Driver: Driver@123
 INSERT INTO users (name, email, phone, password_hash, role, is_active) VALUES
 ('Karim Driver', 'driver@rideease.com', '01733333333',
  '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'driver', 1),
 ('Jamal Hossain', 'jamal@rideease.com', '01744444444',
  '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'driver', 1);
+
 
 
 
@@ -354,10 +374,12 @@ INSERT INTO drivers (user_id, license_no, nid_no, experience_years, avg_rating, 
 
 
 
+
 -- Vehicles
 INSERT INTO vehicles (driver_id, make, model, year, color, plate_no, vehicle_type, is_approved) VALUES
 (1, 'Toyota', 'Allion', 2018, 'White', 'DHAKA-GA-1234', 'car', 1),
 (2, 'Honda', 'City', 2019, 'Silver', 'DHAKA-GA-5678', 'car', 1);
+
 
 
 
@@ -375,12 +397,14 @@ INSERT INTO rides (passenger_id, driver_id, pickup_location, destination, distan
 
 
 
+
 -- Payments
 INSERT INTO payments (ride_id, amount, method, status, transaction_id, created_at) VALUES
 (1, 152.00, 'cash', 'completed', 'TXN-CASH-00001', DATE_SUB(NOW(), INTERVAL 5 DAY)),
 (2, 161.60, 'bkash', 'completed', 'TXN-BKS-78234', DATE_SUB(NOW(), INTERVAL 3 DAY)),
 (3, 204.00, 'card', 'completed', 'TXN-CRD-55123', DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (5, 107.60, 'cash', 'completed', 'TXN-CASH-00002', DATE_SUB(NOW(), INTERVAL 7 DAY));
+
 
 
 
@@ -397,9 +421,11 @@ INSERT INTO driver_earnings (driver_id, ride_id, gross_amount, commission_pct, c
 
 
 
+
 -- Cancellations
 INSERT INTO cancellations (ride_id, cancelled_by, cancelled_by_role, reason) VALUES
 (4, 2, 'passenger', 'Changed my travel plans');
+
 
 
 
@@ -416,12 +442,14 @@ INSERT INTO ratings (ride_id, driver_id, passenger_id, rating, feedback) VALUES
 
 
 
+
 -- Favorite Locations
 INSERT INTO favorite_locations (user_id, label, address) VALUES
 (2, 'Home', 'Mirpur 12, Dhaka'),
 (2, 'Office', 'Motijheel, Dhaka'),
 (3, 'Home', 'Uttara Sector 7, Dhaka'),
 (3, 'University', 'NSU, Bashundhara, Dhaka');
+
 
 
 
@@ -435,6 +463,7 @@ INSERT INTO sos_alerts (ride_id, user_id, message, is_resolved) VALUES
 
 
 
+
 -- Complaints
 INSERT INTO complaints (user_id, ride_id, subject, description, status, admin_response) VALUES
 (2, 2, 'Driver arrived late', 'The driver was 15 minutes late and did not apologize.', 'resolved', 'We have noted the feedback and spoken to the driver. Thank you.'),
@@ -443,7 +472,13 @@ INSERT INTO complaints (user_id, ride_id, subject, description, status, admin_re
 
 
 
+
  
+
+
+
+
+
 
 
 
