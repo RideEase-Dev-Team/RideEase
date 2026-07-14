@@ -1,5 +1,7 @@
 <?php
-
+// ============================================================
+// RideEase – Admin Ride Monitoring
+// ============================================================
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
@@ -27,11 +29,35 @@ try {
     } else {
         $stmt = $db->query($sql . " ORDER BY r.id DESC");
     }
+
+
+
+
+
+
+
+
+
+
+
+
     
     $rides = $stmt->fetchAll();
 } catch (PDOException $e) {
     die("Error compiling rides monitor registry.");
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 $pageTitle = "Ride Monitoring";
 require_once __DIR__ . '/../includes/header.php';
@@ -120,3 +146,63 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
