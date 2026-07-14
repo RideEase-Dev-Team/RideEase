@@ -1,7 +1,4 @@
 <?php
-// ============================================================
-// RideEase – Driver Earnings & Payout Analytics Dashboard
-// ============================================================
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
@@ -11,7 +8,6 @@ requireDriver();
 $db = getDB();
 $userId = currentUserId();
 
-// 1. Fetch driver profile ID
 try {
     $driverStmt = $db->prepare("SELECT id FROM drivers WHERE user_id = ?");
     $driverStmt->execute([$userId]);
@@ -25,7 +21,6 @@ try {
     die("Database config error.");
 }
 
-// 2. Fetch Earnings summary stats
 $gross = 0.00;
 $commission = 0.00;
 $net = 0.00;
@@ -45,7 +40,6 @@ try {
     error_log("Stats fetch error: " . $e->getMessage());
 }
 
-// 3. Fetch Earnings History
 $history = [];
 try {
     $histStmt = $db->prepare("

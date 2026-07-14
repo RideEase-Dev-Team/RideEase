@@ -42,19 +42,32 @@ require_once __DIR__ . '/../includes/header.php';
         <p class="text-secondary" style="margin-bottom: 2rem;">Select your pickup point and destination. You can click on the map to set coordinates directly.</p>
 
         <div class="grid-2">
+<<<<<<< HEAD
+
+=======
             <!-- Left Side: Interactive Map -->
+>>>>>>> origin/main
             <div>
                 <div class="card" style="padding:0; overflow:hidden;">
                     <div id="map" style="height: 480px; width: 100%;"></div>
                 </div>
             </div>
 
+<<<<<<< HEAD
+=======
             <!-- Right Side: Booking Form details -->
+>>>>>>> origin/main
             <div>
                 <div class="card">
                     <h3 class="gradient-text">Route Details</h3>
                     <form action="../api/book_ride.php" method="POST" id="booking-form">
+<<<<<<< HEAD
+
                         <input type="hidden" name="csrf_token" value="<?php echo csrfToken(); ?>">
+
+=======
+                        <input type="hidden" name="csrf_token" value="<?php echo csrfToken(); ?>">
+>>>>>>> origin/main
                         <input type="hidden" name="pickup_coords" id="pickup_coords" required>
                         <input type="hidden" name="dest_coords" id="dest_coords" required>
                         <input type="hidden" name="distance_km" id="distance_km" required>

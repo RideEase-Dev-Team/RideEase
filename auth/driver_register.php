@@ -1,8 +1,11 @@
 <?php
+<<<<<<< HEAD
+=======
 // ============================================================
 // RideEase – Driver Registration Page
 // ============================================================
 
+>>>>>>> origin/main
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/session.php';
 
@@ -14,14 +17,20 @@ $success = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verifyCsrf();
 
+<<<<<<< HEAD
+=======
     // Personal details
+>>>>>>> origin/main
     $name = sanitize($_POST['name']);
     $email = sanitize($_POST['email']);
     $phone = sanitize($_POST['phone']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     
+<<<<<<< HEAD
+=======
     // Driver Details
+>>>>>>> origin/main
     $license_no = sanitize($_POST['license_no']);
     $nid_no = sanitize($_POST['nid_no']);
     $experience_years = intval($_POST['experience_years']);
@@ -206,7 +215,11 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
 </div>
 
+<<<<<<< HEAD
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+=======
 <?php require_once __DIR__ . '/../includes/footer.php'; ?> 
 
 // End of driver registration page
     
+>>>>>>> origin/main
